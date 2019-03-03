@@ -3,6 +3,7 @@
 预览连接：https://jianqiang-ye.github.io/my-canvas/
 ![image.png](https://upload-images.jianshu.io/upload_images/15770018-89714ea5327a4e68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ## 知识点总结
+###用到的知识有`canvas`标签和js监听事件
 1. 画笔从画下到松开需要三个鼠标事件`onmouseup`、`onmousemove`、`onmousedown`
 2. 关键部分的代码
 ```
