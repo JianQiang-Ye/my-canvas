@@ -1,6 +1,6 @@
 # my-canvas
 # 效果预览图
-预览连接：https://jianqiang-ye.github.io/my-canvas/
+预览连接：https://jianqiang-ye.github.io/my-canvas/index.html
 ![image.png](https://upload-images.jianshu.io/upload_images/15770018-89714ea5327a4e68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ## 知识点总结
 ###用到的知识有`canvas`标签和js监听事件
