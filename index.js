@@ -8,6 +8,7 @@ var newPoint = { 'x': undefined, 'y': undefined } //两点之间下一个点
 
 autoSetCanvasSize(canvas)
 
+// 
 if (document.body.ontouchstart === undefined) {
     // pc设备
     listenToMouse(canvas)
