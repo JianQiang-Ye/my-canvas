@@ -6,15 +6,18 @@ var usingBrush = false // 是否使用刷子，左键点击即开启
 var lastPoint = { 'x': undefined, 'y': undefined }  //两点之间的上一个点
 var newPoint = { 'x': undefined, 'y': undefined } //两点之间下一个点
 
-autoSetCanvasSize(canvas)
 
+
+autoSetCanvasSize(canvas) //自动设置画布大小
+
+context.fillStyle = 'white'
+context.fillRect(0, 0, canvas.width, canvas.height)
 // 
 if (document.body.ontouchstart === undefined) {
     // pc设备
     listenToMouse(canvas)
-} else {
+    } else {
     //触屏设备
-
     // 按下手指
     canvas.ontouchstart = function (ev) {
         var x = ev.touches[0].clientX
@@ -24,7 +27,9 @@ if (document.body.ontouchstart === undefined) {
 
         if (usingBrush) {
             if (usingEraser) {
-                context.clearRect(x - 5, y - 5, 10, 10)
+                // 使用橡皮擦
+                context.fillStyle = 'white'
+                context.fillRect(x - 5, y - 5, 10, 10)
             } else {
                 drawCircle(x, y, 3)
                 lastPoint = { 'x': x, 'y': y }
@@ -41,7 +46,8 @@ if (document.body.ontouchstart === undefined) {
 
         if (usingBrush) {
             if (usingEraser) {
-                context.clearRect(x - 5, y - 5, 10, 10)
+                context.fillStyle = 'white'
+                context.fillRect(x - 5, y - 5, 10, 10)
             }
             else {
                 drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
@@ -69,7 +75,8 @@ function listenToMouse(canvas) {
 
         if (usingBrush) {
             if (usingEraser) {
-                context.clearRect(x - 5, y - 5, 10, 10)
+                context.fillStyle = 'white'
+                context.fillRect(x - 5, y - 5, 10, 10)
             } else {
                 drawCircle(x, y, 3)
                 lastPoint = { 'x': x, 'y': y }
@@ -88,7 +95,8 @@ function listenToMouse(canvas) {
 
         if (usingBrush) {
             if (usingEraser) {
-                context.clearRect(x - 5, y - 5, 10, 10)
+                context.fillStyle = 'white'
+                context.fillRect(x - 5, y - 5, 10, 10)
             }
             else {
                 drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
@@ -113,7 +121,6 @@ function listenToMouse(canvas) {
 //画一个圆
 function drawCircle(x, y, radius) {
     context.beginPath();
-    context.fillStyle = 'black'
     context.arc(x, y, radius, 0, Math.PI * 2)
     context.fill()
     context.closePath()
@@ -127,17 +134,52 @@ function drawLine(x1, y1, x2, y2) {
     context.stroke()  //画线
     context.closePath()
 }
-// 橡皮擦
+
 var eraser = document.getElementById('eraser')
+var brush = document.getElementById('brush')
+var clear = document.getElementById('clear')
+var save = document.getElementById('save')
+
+
+// 橡皮擦按钮
 var usingEraser = false // 橡皮擦的状态
 eraser.onclick = function (e) {
-    usingEraser = !usingEraser //当橡皮擦被点击时，橡皮擦的状态改变
-    actions.className = 'actions x'
+    usingEraser = true //当橡皮擦被点击时，橡皮擦的状态改变
+    eraser.classList.add('active') //橡皮擦被点击时，高亮
+    brush.classList.remove('active') //其他按钮恢复正常
+    clear.classList.remove('active')
+    save.classList.remove('active')
 }
+// 画笔按钮
 brush.onclick = function (e) {
     usingBrush = false
     usingEraser = false
-    actions.className = 'actions'
+    brush.classList.add('active')
+    eraser.classList.remove('active')
+    clear.classList.remove('active')
+    save.classList.remove('active')
+}
+// 清除画板
+clear.onclick = function (e) {
+    usingEraser = false
+
+    clear.classList.add('active')
+    brush.classList.add('active')
+    eraser.classList.remove('active')
+    save.classList.remove('active')
+    setTimeout(() => {
+        clear.classList.remove('active')
+    }, 200);//设置延迟执行
+
+    context.fillStyle = 'white'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+}
+// 保存
+save.onclick = function (e) {
+    save.classList.add('active')
+    setTimeout(() => {
+        save.classList.remove('active')
+    }, 200);
 }
 // 设置canvas的大小
 function setCanvasSize() {
@@ -154,3 +196,58 @@ function autoSetCanvasSize(canvas) {
     //     setCanvasSize();
     // }
 }
+// 颜料盘
+var red = document.getElementById('red')
+var blue = document.getElementById('blue')
+var yellow = document.getElementById('yellow')
+var black = document.getElementById('black')
+
+red.onclick = function (e) {
+    red.classList.add('active')
+    black.classList.remove('active')
+    blue.classList.remove('active')
+    yellow.classList.remove('active')
+
+    context.fillStyle = 'red'
+    context.strokeStyle = 'red'
+}
+blue.onclick = function (e) {
+    blue.classList.add('active')
+    black.classList.remove('active')
+    red.classList.remove('active')
+    yellow.classList.remove('active')
+
+    context.fillStyle = '#0094d0'
+    context.strokeStyle = '#0094d0'
+}
+yellow.onclick = function (e) {
+    yellow.classList.add('active')
+    black.classList.remove('active')
+    blue.classList.remove('active')
+    red.classList.remove('active')
+
+    context.fillStyle = 'yellow'
+    context.strokeStyle = 'yellow'
+}
+black.onclick = function (e) {
+    black.classList.add('active')
+    blue.classList.remove('active')
+    red.classList.remove('active')
+    yellow.classList.remove('active')
+
+    context.fillStyle = 'black'
+    context.strokeStyle = 'black'
+}
+// 保存按钮
+var save = document.getElementById('save')
+save.onclick = function (e) {
+    var url = canvas.toDataURL('image/png')
+    var a = document.createElement('a')
+    document.body.append(a)
+    a.href = url
+    a.download = '我的画作' //download的属性值是下载的名字
+    a.target = '_blank' //target是可以控制是否打开新窗口的
+    a.click()
+}
+
+

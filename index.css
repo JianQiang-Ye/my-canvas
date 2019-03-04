@@ -2,23 +2,86 @@
     padding: 0;
     margin: 0;
 }
+body{
+    overflow: hidden;
+}
+ol{
+    list-style: none;
+}
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
 canvas{
     display: block;
-    background: green;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 .actions{
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     /* 写了positionfixed之后，要用bottom，等定位 */
 }
-#brush{
-    display: none;
+.actions > svg{
+    margin: 10px 10px;
+    cursor: pointer;
+    transform: scale(1.5);
+    transition: 0.3s;
 }
-.actions.x #brush{
-    display: inline-block
+.actions .active{
+    color: red;
+    border-color: red;
+    transform: scale(2);
 }
-.actions.x #eraser{
-    display: none;
+div.pigment{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
 }
-/* .actions.x 的意思是调用同时含有这两个class的标签 */
+div.pigment .plates{
+    margin-bottom: 16px; 
+    
+}
+.pigment .plates .active{
+    transform: scale(1.1);
+    transition: all 0.3s;
+}
+div.pigment .plates li{
+    border: 3px solid #aaa;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    float: left;
+    margin-left: 5px;
+}
+div.pigment .plates li:first-child{
+    margin-left: 0;
+}
+.plates .blue{
+    background-image: url(img-noise-361x370.png);
+    background-color: #0094d0;
+    
+}
+.plates .red{
+    background-image: url(img-noise-361x370.png);
+
+    background-color: red;
+}
+.plates .yellow{
+    background-image: url(img-noise-361x370.png);
+    background-color: yellow;
+}
+.plates .black{
+    background-image: url(img-noise-361x370.png);    
+    background-color: black;
+}
+.clearfix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
