@@ -8,51 +8,103 @@ var newPoint = { 'x': undefined, 'y': undefined } //两点之间下一个点
 
 autoSetCanvasSize(canvas)
 
-//按下鼠标
-canvas.onmousedown = function (ev) {
-    var x = ev.clientX
-    var y = ev.clientY
+if (document.body.ontouchstart === undefined) {
+    // pc设备
+    listenToMouse(canvas)
+} else {
+    //触屏设备
 
-    usingBrush = true
+    // 按下手指
+    canvas.ontouchstart = function (ev) {
+        var x = ev.touches[0].clientX
+        var y = ev.touches[0].clientY
 
-    if (usingBrush) {
-        if (usingEraser) {
-            context.clearRect(x - 5, y - 5, 10, 10)
-        } else {
-            drawCircle(x, y, 3)
-            lastPoint = { 'x': x, 'y': y }
+        usingBrush = true
+
+        if (usingBrush) {
+            if (usingEraser) {
+                context.clearRect(x - 5, y - 5, 10, 10)
+            } else {
+                drawCircle(x, y, 3)
+                lastPoint = { 'x': x, 'y': y }
+            }
         }
     }
 
-}
+    // 移动手指
+    canvas.ontouchmove = function (ev) {
+        var x = ev.touches[0].clientX
+        var y = ev.touches[0].clientY
 
+        newPoint = { 'x': x, 'y': y }
 
-
-//移动鼠标
-canvas.onmousemove = function (ev) {
-    var x = ev.clientX
-    var y = ev.clientY
-
-    newPoint = { 'x': x, 'y': y }
-
-    if (usingBrush) {
-        if (usingEraser) {
-            context.clearRect(x - 5, y - 5, 10, 10)
-        }
-        else {
-            drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
-            lastPoint = newPoint
-            // 当对象之间使用=的时候，赋值的时候要小心，
-            // 如果是.赋值，则两个对象会一起改变
-            // 如果是{}赋值，则相互之间不会改变
+        if (usingBrush) {
+            if (usingEraser) {
+                context.clearRect(x - 5, y - 5, 10, 10)
+            }
+            else {
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                lastPoint = newPoint
+                // 当对象之间使用=的时候，赋值的时候要小心，
+                // 如果是.赋值，则两个对象会一起改变
+                // 如果是{}赋值，则相互之间不会改变
+            }
         }
     }
 
+    //松开鼠标
+    canvas.ontouchend = function (ev) {
+        usingBrush = false
+    }
 }
 
-//松开鼠标
-canvas.onmouseup = function (ev) {
-    usingBrush = false
+function listenToMouse(canvas) {
+    //按下鼠标
+    canvas.onmousedown = function (ev) {
+        var x = ev.clientX
+        var y = ev.clientY
+
+        usingBrush = true
+
+        if (usingBrush) {
+            if (usingEraser) {
+                context.clearRect(x - 5, y - 5, 10, 10)
+            } else {
+                drawCircle(x, y, 3)
+                lastPoint = { 'x': x, 'y': y }
+            }
+        }
+
+    }
+
+
+    //移动鼠标
+    canvas.onmousemove = function (ev) {
+        var x = ev.clientX
+        var y = ev.clientY
+
+        newPoint = { 'x': x, 'y': y }
+
+        if (usingBrush) {
+            if (usingEraser) {
+                context.clearRect(x - 5, y - 5, 10, 10)
+            }
+            else {
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                lastPoint = newPoint
+                // 当对象之间使用=的时候，赋值的时候要小心，
+                // 如果是.赋值，则两个对象会一起改变
+                // 如果是{}赋值，则相互之间不会改变
+            }
+        }
+
+    }
+
+    //松开鼠标
+    canvas.onmouseup = function (ev) {
+        usingBrush = false
+    }
+
 }
 
 
@@ -81,8 +133,9 @@ eraser.onclick = function (e) {
     usingEraser = !usingEraser //当橡皮擦被点击时，橡皮擦的状态改变
     actions.className = 'actions x'
 }
-brush.onclick = function(e){
+brush.onclick = function (e) {
     usingBrush = false
+    usingEraser = false
     actions.className = 'actions'
 }
 // 设置canvas的大小
