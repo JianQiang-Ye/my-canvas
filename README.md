@@ -3,7 +3,12 @@
 
 ![尽力了](https://upload-images.jianshu.io/upload_images/15770018-d48fbd0ec509daeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-
+##特点
+1. 支持移动端操作
+2. 使用 Canvas API
+3. 包含橡皮、换颜色、保存等功能
+4. 使用原生 JS 开发
+5. HTML 5 & CSS 3 inside
 ## 知识点总结
 1. 画笔从画下到松开需要三个鼠标事件`onmouseup`、`onmousemove`、`onmousedown`
 2. 关键部分的代码
