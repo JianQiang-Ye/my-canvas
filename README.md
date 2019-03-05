@@ -3,7 +3,7 @@
 
 ![尽力了](https://upload-images.jianshu.io/upload_images/15770018-d48fbd0ec509daeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-##特点
+## 特点
 1. 支持移动端操作
 2. 使用 Canvas API
 3. 包含橡皮、换颜色、保存等功能
