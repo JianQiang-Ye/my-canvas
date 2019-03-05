@@ -63,17 +63,17 @@ div.pigment .plates li:first-child{
 }
 .plates .blue{
     background-image: url(img-noise-361x370.png);
-    background-color: #0094d0;
+    background-color: #0776c2;
     
 }
 .plates .red{
     background-image: url(img-noise-361x370.png);
 
-    background-color: red;
+    background-color: #e61b0d;
 }
-.plates .yellow{
+.plates .pink{
     background-image: url(img-noise-361x370.png);
-    background-color: yellow;
+    background-color: #e69fc1;
 }
 .plates .black{
     background-image: url(img-noise-361x370.png);    

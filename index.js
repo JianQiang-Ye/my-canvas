@@ -167,9 +167,10 @@ clear.onclick = function (e) {
     brush.classList.add('active')
     eraser.classList.remove('active')
     save.classList.remove('active')
-    setTimeout(() => {
-        clear.classList.remove('active')
-    }, 200);//设置延迟执行
+    setTimeout(function(){ clear.classList.remove('active'); }, 200);    
+    // setTimeout(() => {
+    //     clear.classList.remove('active')
+    // }, 200);//设置延迟执行,这种写法在某些手机浏览器上不支持
 
     context.fillStyle = 'white'
     context.fillRect(0, 0, canvas.width, canvas.height)
@@ -177,9 +178,14 @@ clear.onclick = function (e) {
 // 保存
 save.onclick = function (e) {
     save.classList.add('active')
-    setTimeout(() => {
-        save.classList.remove('active')
-    }, 200);
+    setTimeout(function(){ save.classList.remove('active'); }, 200);    
+
+    var url = canvas.toDataURL('image/png')
+    var a = document.createElement('a')
+    document.body.append(a)
+    a.href = url
+    a.download = '你画的佩奇也太可爱了吧！' //download的属性值是下载的名字
+    a.click()
 }
 // 设置canvas的大小
 function setCanvasSize() {
@@ -199,55 +205,43 @@ function autoSetCanvasSize(canvas) {
 // 颜料盘
 var red = document.getElementById('red')
 var blue = document.getElementById('blue')
-var yellow = document.getElementById('yellow')
+var pink = document.getElementById('pink')
 var black = document.getElementById('black')
 
 red.onclick = function (e) {
     red.classList.add('active')
     black.classList.remove('active')
     blue.classList.remove('active')
-    yellow.classList.remove('active')
+    pink.classList.remove('active')
 
-    context.fillStyle = 'red'
-    context.strokeStyle = 'red'
+    context.fillStyle = '#ea5b52'
+    context.strokeStyle = '#ea5b52'
 }
 blue.onclick = function (e) {
     blue.classList.add('active')
     black.classList.remove('active')
     red.classList.remove('active')
-    yellow.classList.remove('active')
+    pink.classList.remove('active')
 
-    context.fillStyle = '#0094d0'
-    context.strokeStyle = '#0094d0'
+    context.fillStyle = '#0776c2'
+    context.strokeStyle = '#0776c2'
 }
-yellow.onclick = function (e) {
-    yellow.classList.add('active')
+pink.onclick = function (e) {
+    pink.classList.add('active')
     black.classList.remove('active')
     blue.classList.remove('active')
     red.classList.remove('active')
 
-    context.fillStyle = 'yellow'
-    context.strokeStyle = 'yellow'
+    context.fillStyle = '#f2a7c8'
+    context.strokeStyle = '#f2a7c8'
 }
 black.onclick = function (e) {
     black.classList.add('active')
     blue.classList.remove('active')
     red.classList.remove('active')
-    yellow.classList.remove('active')
+    pink.classList.remove('active')
 
-    context.fillStyle = 'black'
-    context.strokeStyle = 'black'
+    context.fillStyle = '#000401'
+    context.strokeStyle = '#000401'
 }
-// 保存按钮
-var save = document.getElementById('save')
-save.onclick = function (e) {
-    var url = canvas.toDataURL('image/png')
-    var a = document.createElement('a')
-    document.body.append(a)
-    a.href = url
-    a.download = '我的画作' //download的属性值是下载的名字
-    a.target = '_blank' //target是可以控制是否打开新窗口的
-    a.click()
-}
-
 
